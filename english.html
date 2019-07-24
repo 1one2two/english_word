@@ -4,19 +4,25 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>english</title>
     <link rel="stylesheet" type="text/css" href="./style.css">
+
+    <script type="text/javascript" src="./jquery-3.4.1.min.js"></script>
+    <script type="text/json" src="english.json"></script>
     
-    <script language="javascript" type="text/javascript" src="./p5/p5.js"></script>
-    <script src="./english.js"></script>
+    <script type="text/javascript" src='./responsivevoice.js'></script>
 </head>
 
 <body>
-    <canvas id="po" width="250" height="30"></canvas>
+    <canvas id="po" width="250" height="30"></canvas><br>
     <canvas id="qe" width="250" height="40"></canvas>
     <br>
     <input type="button" class="bt" id="a1" onclick="re(id)" value="A"></input>
     <input type="button" class="bt" id="a2" onclick="re(id)" value="B"></input><br><br>
     <input type="button" class="bt" id="a3" onclick="re(id)" value="C"></input>
-    <input type="button" class="bt" id="a4" onclick="re(id)" value="D"></input>
+    <input type="button" class="bt" id="a4" onclick="re(id)" value="D"></input><br>
+    <input type="textbox" id="all_answer" value="Type something"></input>
+    <button id="butts" class="send"></button>
+
+    <script type="text/javascript" src="./english.js"></script>
 </body>
 
 </html>
