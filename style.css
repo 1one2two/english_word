@@ -1,11 +1,48 @@
-.bt {
-    width: 120px;
+.body {
+    background-color: '#63C132';
+}
+
+.bts {
+    width: 150px;
     height: 60px;
     font-size: 32px;
     text-align: center;
+    color: 'black';
 }
+
+.bt {
+    width: 150px;
+    height: 60px;
+    font-size: 28px;
+    text-align: center;
+    border: 0;
+    background-color: #AAEFDF;
+    color: #003C9D;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.bt:hover {
+    color: #003C9D;
+    background-color: #fff;
+    border: 3px #003C9D solid;
+}
+
 .send {
     width: 38px;
     height: 22px;
     font-size: 18px;
+}
+
+.box {
+    width: 620px;
+    height: 160px;
+    margin: 0px auto;
+    vertical-align: middle;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
 }
