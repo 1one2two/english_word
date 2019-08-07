@@ -3,9 +3,7 @@ var cou = 0;
 var lis_q = [];
 var point = 0;
 var q_times = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
-//var test = JSON.splice('./english.json');
-//console.log(test);
+//https://coolors.co/cffcff-aaefdf-9ee37d-63c132-358600
 
 document.onkeydown = function (e) {
     switch (String(e.key)) {
@@ -37,12 +35,8 @@ window.onload = function () {
         cou++;
     }
     draw_score();
-    new_q(); //delay(1000).then(() => new_q());
+    new_q();
 }
-
-$("#butts").click(function () {
-    alert("Your answer:" + $("#all_answer").val())
-});
 
 function get_key_value(ind) {
     var i = 0;
@@ -73,7 +67,7 @@ function new_q() {
             pan_q.font = "bold 38px Arial";
             pan_q.textAlign = "center";
             pan_q.fillText(get_key_value(lis_q[index]).e, 310, 35);
-            //responsiveVoice.speak(get_key_value(lis_q[index]).e);
+            responsiveVoice.speak(get_key_value(lis_q[index]).e);
         }
         else
             document.getElementById('a' + index).value = get_key_value(lis_q[index]).c;
@@ -85,11 +79,13 @@ function re(id) {
         point++;
         q_times[lis_q[0]]++;
 
+        var audio = new Audio('coin04.mp3');
         $('#' + id).css('background-color', '#2AB6CF');
         delay(180).then(() => {
             new_q();
             $('#' + id).css('background-color', '');
         });
+        audio.play();
     }
     else {
         point = 0;
@@ -108,7 +104,7 @@ function draw_score() {
     pan.fillRect(0, 0, pg.width, pg.height);
 
     pan.fillStyle = "#000000";
-    pan.font = "12px Arial";
+    pan.font = "16px Arial";
     pan.fillStyle = "";
     pan.fillText("Score:" + String(point), 5, 20);
 }
