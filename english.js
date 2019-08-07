@@ -1,4 +1,4 @@
-let word = { "exact": "確切", "thunder": "雷", "storm": "暴風雨", "breeze": "微風", "aruge": "爭論", "package": "包裹", "stairs": "樓梯", "tiptoe": "顛腳", "shovel": "鏟", "lie": "躺" }
+let word = { "translate": "翻譯", "bulb": "燈泡", "enroll": "註冊", "community college": "社區大學", "sharpen": "加強", "course": "課程", "spilled": "打翻", "damp cloth": "抹布", "astronaut": "", "volunteers": "", "graduate": "畢業", "probably": "可能", "damage": "破壞", "affect": "", "quality": "品質", "generations": "世代", "resigned": "辭職", "algebra": "代數", "geometry": "幾何", "term": "學期" }
 var cou = 0;
 var lis_q = [];
 var point = 0;
