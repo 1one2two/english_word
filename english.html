@@ -9,10 +9,23 @@
     <script type="text/json" src="english.json"></script>
 
     <script type="text/javascript" src='./responsivevoice.js'></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<body bgcolor="#9EE37D">
-    <div class="box">
+<body bgcolor="#9EE37D" onresize="test()">
+    <div id="menu" class="edge">
+        <ul>
+            <li>
+                <button class="btn" id="menu_btn"><i class="fa fa-bars"></i></button><br>
+            </li>
+            <li>
+                <input type="file" class="file" id="selectFiles" value="Import" hidden /><br />
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="box" id="box">
         <canvas id="po" width="620" height="30"></canvas><br>
         <canvas id="qe" width="620" height="48"></canvas>
         <br>

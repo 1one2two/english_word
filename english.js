@@ -1,9 +1,32 @@
-let word = { "sharpen": "加強", "course": "課程", "spilled": "打翻", "damp cloth": "抹布", "astronaut": "太空人", "volunteers": "志願", "graduate": "畢業", "probably": "可能", "damage": "破壞", "affect": "影響", "quality": "品質", "generations": "世代", "resigned": "辭職", "algebra": "代數", "geometry": "幾何", "term": "學期" }
+var word = { "sharpen": "加強", "course": "課程", "spilled": "打翻", "damp cloth": "抹布", "astronaut": "太空人", "volunteers": "志願", "graduate": "畢業", "probably": "可能", "damage": "破壞", "affect": "影響", "quality": "品質", "generations": "世代", "resigned": "辭職", "algebra": "代數", "geometry": "幾何", "term": "學期" }
 var cou = 0;
 var lis_q = [];
 var point = 0;
-var q_times = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 //https://coolors.co/cffcff-aaefdf-9ee37d-63c132-358600
+
+document.onresize = function () {
+    console.log('Change');
+}
+
+function test() {
+    var w = $(window).width();
+    var h = $(window).height()
+    if (w < 620) {
+        $('#po').css('width', String(w) + 'px');
+        $('#qe').css('width', String(w) + 'px');
+        console.log('Small');
+    }
+    else {
+        $('#po').css('width', '620px');
+        $('#qe').css('width', '620px');
+    }
+
+    if(w < 620){
+        var a = document.createElement('button');
+        a.innerHTML = 'abc';
+
+        document.getElementsByTagName('body')[0].appendChild(a);    }
+}
 
 document.onkeydown = function (e) {
     switch (String(e.key)) {
@@ -24,6 +47,12 @@ document.onkeydown = function (e) {
     }
 }
 
+function reset() {
+    point = 0;
+    draw_score();
+    new_q();
+}
+
 window.onload = function () {
     pg = document.getElementById('po');
     pan = pg.getContext('2d');
@@ -31,7 +60,7 @@ window.onload = function () {
     pg_q = document.getElementById('qe');
     pan_q = pg_q.getContext('2d');
     for (i in word) {
-        console.log(cou, i, word[i]);
+        //console.log(cou, i, word[i]);
         cou++;
     }
     draw_score();
@@ -40,6 +69,7 @@ window.onload = function () {
 
 function get_key_value(ind) {
     var i = 0;
+    console.log(word);
     for (k in word) {
         if (i == ind) return { "e": k, "c": word[k] };
         i++;
@@ -66,7 +96,7 @@ function new_q() {
             pan_q.fillStyle = "black";
             pan_q.font = "bold 38px Arial";
             pan_q.textAlign = "center";
-            pan_q.fillText(get_key_value(lis_q[index]).e, 310, 35);
+            pan_q.fillText(get_key_value(lis_q[index]).e, $('#qe').width() / 2, 35);
             responsiveVoice.speak(get_key_value(lis_q[index]).e);
         }
         else
@@ -77,7 +107,6 @@ function new_q() {
 function re(id) {
     if (lis_q[id[1]] == lis_q[0]) {
         point++;
-        q_times[lis_q[0]]++;
 
         var audio = new Audio('coin04.mp3');
         $('#' + id).css('background-color', '#2AB6CF');
@@ -106,7 +135,8 @@ function draw_score() {
     pan.fillStyle = "#000000";
     pan.font = "16px Arial";
     pan.fillStyle = "";
-    pan.fillText("Score:" + String(point), 5, 20);
+    pan.textAlign = "right";
+    pan.fillText("Score:" + String(point), $('#po').width() - 20, 20);
 }
 
 var delay = function (s) {
@@ -114,3 +144,58 @@ var delay = function (s) {
         setTimeout(resolve, s);
     });
 };
+
+$('#selectFiles').change(function () {
+    var files = document.getElementById('selectFiles').files;
+    if (files.length <= 0) {
+        return false;
+    }
+
+    var fr = new FileReader();
+    fr.onload = function (e) {
+        console.log(e);
+        var result = JSON.parse(e.target.result);
+        var formatted = JSON.stringify(result, null, 2);
+        word = result;
+        console.log(word, formatted);
+        reset();
+    }
+
+    fr.readAsText(files.item(0));
+})
+var sh = false;
+$('#menu_btn').click(function () {
+    if (sh) {
+        $('#selectFiles').hide();
+        $('ul').css('background-color', '#9EE37D');
+        $('#menu').css('background-color', '#9EE37D');
+
+        $('#box').css({ left: 0 });
+    }
+    else {
+        $('#selectFiles').show();
+        $('ul').css('background-color', '#AAEFDF');
+        $('#menu').css('background-color', '#AAEFDF');
+
+        $('#box').css({ left: 220 });
+    }
+    sh = !sh;
+})
+
+$(".menu li").on('mouseenter mouseleave', function (e) {
+
+    var elm = $('ul:first', this);
+    var off = elm.offset();
+    var l = off.left;
+    var w = elm.width();
+    var docH = $(".container").height();
+    var docW = $(".container").width();
+
+    var isEntirelyVisible = (l + w <= docW);
+
+    if (!isEntirelyVisible) {
+        $(this).addClass('edge');
+    } else {
+        $(this).removeClass('edge');
+    }
+});
