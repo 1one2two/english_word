@@ -2,7 +2,16 @@ var word = { "sharpen": "加強", "course": "課程", "spilled": "打翻", "damp
 var cou = 0;
 var lis_q = [];
 var point = 0;
+var question_language_english = false;
 //https://coolors.co/cffcff-aaefdf-9ee37d-63c132-358600
+
+/*
+1) Add button selecgt question language
+
+2) Hide textbox or button by setting
+
+3) Textbox CSS to more beautiful
+*/
 
 document.onresize = function () {
     console.log('Change');
@@ -21,26 +30,31 @@ function test() {
         $('#qe').css('width', '620px');
     }
 
-    if(w < 620){
+    if (w < 620) {
         var a = document.createElement('button');
         a.innerHTML = 'abc';
 
-        document.getElementsByTagName('body')[0].appendChild(a);    }
+        document.getElementsByTagName('body')[0].appendChild(a);
+    }
 }
 
 document.onkeydown = function (e) {
-    switch (String(e.key)) {
-        case "1":
+    console.log(e);
+    switch (String(e.code)) {
+        case "Numpad1":
             $('#a1').click();
             break;
-        case "2":
+        case "Numpad2":
             $('#a2').click();
             break;
-        case "3":
+        case "Numpad3":
             $('#a3').click();
             break;
-        case "4":
+        case "Numpad4":
             $('#a4').click();
+            break;
+        case "Enter":
+            re("a0");
             break;
         default:
             break;
@@ -69,9 +83,12 @@ window.onload = function () {
 
 function get_key_value(ind) {
     var i = 0;
-    console.log(word);
     for (k in word) {
-        if (i == ind) return { "e": k, "c": word[k] };
+        if (i == ind)
+            if (question_language_english)
+                return { "e": k, "c": word[k] };
+            else
+                return { "c": k, "e": word[k] };
         i++;
     }
     return 0;
@@ -105,7 +122,17 @@ function new_q() {
 }
 
 function re(id) {
-    if (lis_q[id[1]] == lis_q[0]) {
+    var t = false;
+    if (id[1] == 0) {
+        console.log($('#a0')[0].value, get_key_value(lis_q[0]).c)
+        if ($('#a0')[0].value == get_key_value(lis_q[0]).c)
+            t = true;
+    }
+    else if (lis_q[id[1]] == lis_q[0])
+        t = true;
+
+    if (t) {
+        $('#a0')[0].value = "";
         point++;
 
         var audio = new Audio('coin04.mp3');
@@ -115,8 +142,7 @@ function re(id) {
             $('#' + id).css('background-color', '');
         });
         audio.play();
-    }
-    else {
+    } else {
         point = 0;
         $('#' + id).css('background-color', '#ff0000');
         delay(180).then(() => {
