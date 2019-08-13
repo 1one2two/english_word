@@ -2,20 +2,8 @@ var word = { "sharpen": "加強", "course": "課程", "spilled": "打翻", "damp
 var cou = 0;
 var lis_q = [];
 var point = 0;
-var question_language_english = false;
+var question_language_english = true, question_type_button = true;
 //https://coolors.co/cffcff-aaefdf-9ee37d-63c132-358600
-
-/*
-1) Add button selecgt question language
-
-2) Hide textbox or button by setting
-
-3) Textbox CSS to more beautiful
-*/
-
-document.onresize = function () {
-    console.log('Change');
-}
 
 function test() {
     var w = $(window).width();
@@ -23,18 +11,23 @@ function test() {
     if (w < 620) {
         $('#po').css('width', String(w) + 'px');
         $('#qe').css('width', String(w) + 'px');
-        console.log('Small');
+        $('#box').css('width', String(w) + 'px');
+        $('#a0').css('width', String(w - 50) + 'px');
+        $("#img").css('height', '0px');
     }
     else {
         $('#po').css('width', '620px');
         $('#qe').css('width', '620px');
+        $('#a0').css('width', '620px');
+        $('#box').css('width', '620px');
+        $("#img").css('height', '30px');
     }
 
     if (w < 620) {
         var a = document.createElement('button');
         a.innerHTML = 'abc';
 
-        document.getElementsByTagName('body')[0].appendChild(a);
+        //document.getElementsByTagName('body')[0].appendChild(a);
     }
 }
 
@@ -54,7 +47,8 @@ document.onkeydown = function (e) {
             $('#a4').click();
             break;
         case "Enter":
-            re("a0");
+            if ($('#a0')[0].value != "")
+                re("a0");
             break;
         default:
             break;
@@ -132,7 +126,6 @@ function re(id) {
         t = true;
 
     if (t) {
-        $('#a0')[0].value = "";
         point++;
 
         var audio = new Audio('coin04.mp3');
@@ -150,6 +143,7 @@ function re(id) {
             $('#' + id).css('background-color', '');
         });
     }
+    $('#a0')[0].value = "";
     draw_score();
 }
 
@@ -193,35 +187,46 @@ var sh = false;
 $('#menu_btn').click(function () {
     if (sh) {
         $('#selectFiles').hide();
+        $('#question').hide();
         $('ul').css('background-color', '#9EE37D');
         $('#menu').css('background-color', '#9EE37D');
 
         $('#box').css({ left: 0 });
+        $('.hid').hide();
     }
     else {
         $('#selectFiles').show();
+        $('#question').show();
         $('ul').css('background-color', '#AAEFDF');
         $('#menu').css('background-color', '#AAEFDF');
 
         $('#box').css({ left: 220 });
+        $('.hid').show();
     }
     sh = !sh;
 })
 
-$(".menu li").on('mouseenter mouseleave', function (e) {
+$('#question').click(function () {
+    if (question_language_english)
+        this.innerHTML = "Chinese";
+    else
+        this.innerHTML = "English";
+    question_language_english = !question_language_english;
+    reset();
+})
 
-    var elm = $('ul:first', this);
-    var off = elm.offset();
-    var l = off.left;
-    var w = elm.width();
-    var docH = $(".container").height();
-    var docW = $(".container").width();
-
-    var isEntirelyVisible = (l + w <= docW);
-
-    if (!isEntirelyVisible) {
-        $(this).addClass('edge');
-    } else {
-        $(this).removeClass('edge');
+$('#answer').click(function () {
+    if (question_type_button)
+        this.innerHTML = "Text";
+    else
+        this.innerHTML = "Button";
+    question_type_button = !question_type_button;
+    if (question_type_button) {
+        $('#a0').hide();
+        $('#tb').show();
     }
-});
+    else {
+        $('#a0').show();
+        $('#tb').hide();
+    }
+})
