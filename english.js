@@ -8,17 +8,19 @@ var question_language_english = true, question_type_button = true;
 function test() {
     var w = $(window).width();
     var h = $(window).height()
-    if (w < 620) {
+    alert(`W:${w}, H:${h}`);
+    $('#test')[0].innerHTML = `W:${w}, H:${h}`;
+    if (w < 680) {
         $('#po').css('width', String(w) + 'px');
         $('#qe').css('width', String(w) + 'px');
         $('#box').css('width', String(w) + 'px');
-        $('#a0').css('width', String(w - 50) + 'px');
+        $('#a0').css('width', String(w - 70) + 'px');
         $("#img").css('height', '0px');
     }
     else {
         $('#po').css('width', '620px');
         $('#qe').css('width', '620px');
-        $('#a0').css('width', '620px');
+        $('#a0').css('width', '550px');
         $('#box').css('width', '620px');
         $("#img").css('height', '30px');
     }
@@ -71,6 +73,8 @@ window.onload = function () {
         //console.log(cou, i, word[i]);
         cou++;
     }
+
+    test();
     draw_score();
     new_q();
 }
@@ -229,4 +233,9 @@ $('#answer').click(function () {
         $('#a0').show();
         $('#tb').hide();
     }
+})
+
+$('#send_answer').click(function () {
+    if ($('#a0')[0].value != "")
+        re("a0");
 })
