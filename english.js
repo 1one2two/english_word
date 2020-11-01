@@ -227,10 +227,12 @@ $('#answer').click(function () {
     question_type_button = !question_type_button;
     if (question_type_button) {
         $('#a0').hide();
+        $('#send_answer').hide();
         $('#tb').show();
     }
     else {
         $('#a0').show();
+        $('#send_answer').show();
         $('#tb').hide();
     }
 })
