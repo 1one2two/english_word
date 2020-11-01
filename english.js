@@ -8,7 +8,7 @@ var question_language_english = true, question_type_button = true;
 function test() {
     var w = $(window).width();
     var h = $(window).height()
-    alert(`W:${w}, H:${h}`);
+    // alert(`W:${w}, H:${h}`);
     $('#test')[0].innerHTML = `W:${w}, H:${h}`;
     if (w < 680) {
         $('#po').css('width', String(w) + 'px');
